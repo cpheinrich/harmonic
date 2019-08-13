@@ -8,11 +8,11 @@ ensure equivaraince to rotations along (x, y) axes and allowing arbitrary kernel
 which is anisotropic along one dimension, for instance slice microscopy.
 
 # Installation
-1. Install [torch-localize](https://github.com/jatentaki/torch-localize)
-2. Install [torch-dimcheck](https://github.com/jatentaki/torch-dimcheck)
-3. Clone this repository
-4. Execute `python setup.py install`. In some case this doesn't work properly and `python setup.py develop`
+1. Clone this repository
+2. Execute `python setup.py install`. In some case this doesn't work properly and `python setup.py develop`
    is necessary instead. I am not sure what is the reason for these issues
+OR
+1. Simply add `git+https://github.com/cpheinrich/harmonic@master` to your requirements.txt file
 
 # Examples
 In examples/mnist2d one can find reimplementation of the RotMNIST experiment from Worrall et al., which requires manually
