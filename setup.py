@@ -11,9 +11,9 @@ def required_packages():
 
 setup(
     name='harmonic-networks',
-    version='0.0.2',
+    version='0.0.3',
     description='PyTorch reimplementation of harmonic networks',
-    packages=['harmonic'],
+    packages=['harmonic', 'torch_dimcheck', 'torch_localize'],
     install_requires=required_packages(),
     author='Michał Tyszkiewicz',
     author_email='michal.tyszkiewicz@gmail.com',

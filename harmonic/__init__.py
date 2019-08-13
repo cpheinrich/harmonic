@@ -1,5 +1,5 @@
+"""
 import itertools
-
 import harmonic.d2
 import harmonic.d3
 
@@ -11,3 +11,4 @@ def cat_repr(r1, r2):
     '''
 
     return tuple(x + y for x, y in itertools.zip_longest(r1, r2, fillvalue=0))
+"""

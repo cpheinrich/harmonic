@@ -7,3 +7,4 @@ data
 *.swp
 build/
 dist/
+.vscode/*
