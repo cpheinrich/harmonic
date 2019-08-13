@@ -12,9 +12,9 @@ def required_packages():
 setup(
     name='harmonic-networks',
     version='0.0.3',
-    description='PyTorch reimplementation of harmonic networks',
+    description='PyTorch reimplementation of harmonic networks. Forked and modified from https://github.com/jatentaki/harmonic',
     packages=['harmonic', 'torch_dimcheck', 'torch_localize'],
     install_requires=required_packages(),
-    author='Michał Tyszkiewicz',
-    author_email='michal.tyszkiewicz@gmail.com',
+    author='Chris Heinrich',
+    author_email='cpheinrich@gmail.com',
 )
