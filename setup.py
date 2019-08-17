@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 def required_packages():
@@ -13,7 +13,7 @@ setup(
     name='harmonic-networks',
     version='0.0.3',
     description='PyTorch reimplementation of harmonic networks. Forked and modified from https://github.com/jatentaki/harmonic',
-    packages=['harmonic', 'torch_dimcheck', 'torch_localize'],
+    packages=find_packages(),
     install_requires=required_packages(),
     author='Chris Heinrich',
     author_email='cpheinrich@gmail.com',

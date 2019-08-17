@@ -1,4 +1,8 @@
-import torch, random, imageio, os, argparse
+import torch
+import random
+import imageio
+import os
+import argparse
 import torch.nn as nn
 import torchvision as tv
 import torchvision.transforms as T
@@ -14,14 +18,19 @@ from utils import AvgMeter
 parser = argparse.ArgumentParser()
 parser.add_argument('model', choices=['hnet', 'baseline'])
 parser.add_argument('train', choices=['mnist', 'rotmnist'])
+parser.add_argument('data_dir', type=str)
 parser.add_argument('-b', '--batch', type=int, default=250)
 parser.add_argument('-j', '--workers', type=int, default=1)
+
 
 args = parser.parse_args()
 
 normalize = T.Normalize((0.1307,), (0.3081,))
+
+
 def unnormalize(x):
     return x * .3081 + .1307
+
 
 if args.train == 'mnist':
     train_set = tv.datasets.MNIST(
@@ -32,21 +41,23 @@ if args.train == 'mnist':
         ])
     )
 elif args.train == 'rotmnist':
-    train_set = loader.Rotmnist('rotmnist/rotated_train.npz', transform=normalize)
+    train_set = loader.Rotmnist(os.path.join(
+        args.data_dir, 'rotated_train.npz'), transform=normalize)
 
 train_loader = torch.utils.data.DataLoader(
     train_set, batch_size=args.batch, shuffle=True, num_workers=args.workers
 )
 
 test_loader = torch.utils.data.DataLoader(
-    loader.Rotmnist('rotmnist/rotated_test.npz', transform=normalize),
+    loader.Rotmnist(os.path.join(
+        args.data_dir, 'rotated_test.npz'), transform=normalize),
     batch_size=args.batch, shuffle=False
 )
 
 layout = [
     (1, ),
     (2, 5, 3, 3, 2),
-#    (5, 5, 5),
+    #    (5, 5, 5),
     (5, 5, 5),
     (5, 5, 5),
     (10, ),
@@ -71,6 +82,7 @@ print('n params:', n_params)
 
 optim = torch.optim.Adam(net.parameters())
 
+
 def accuracy(output, target, topk=(1,)):
     """Computes the accuracy over the k top predictions for the specified values of k"""
     with torch.no_grad():
@@ -87,10 +99,12 @@ def accuracy(output, target, topk=(1,)):
             res.append(correct_k.mul_(100.0 / batch_size))
     return res
 
+
 n_epochs = 20
 
 savedir = 'saves/'
 save_nr = 0
+
 
 def save_one(x, predictions, epoch, batch, prefix=''):
     global save_nr
@@ -108,7 +122,8 @@ def save_one(x, predictions, epoch, batch, prefix=''):
     )
 
     save_nr += 1
-    
+
+
 print('tracing...')
 example = next(iter(train_loader))[0]
 if cuda:
